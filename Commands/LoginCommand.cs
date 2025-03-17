@@ -15,11 +15,25 @@ public class LoginCommand(IRepository<User> userRepository,
 {
     private static async Task ExecuteLogin(IRepository<User> repository, AuthenticationService service, LoginViewModel vm)
     {
-        var user = await repository.TryGet(x => x.Username == vm.Login, null);
+        var user = await repository.TryGet(x => x.Username == vm.Login);
 
-        if (user == null || PasswordHashing.VerifyPassword(vm.Password, user.PasswordHash))
+        if (user == null)
         {
-            MessageBox.Show("Niepoprawny login lub hasło!", "Błąd logowania", MessageBoxButton.OK, MessageBoxImage.Error);
+            ShowError();
+            return;
+        }
+
+        if (!PasswordHashing.VerifyPassword(vm.Password, user.PasswordHash))
+        {
+            user.IncrementFailedLoginAttempts();
+            await repository.Update(user);
+            ShowError();
+            return;
+        }
+
+        if (user.IsLockedOut)
+        {
+            ShowError("Konto jest zablokowane przez zbyt dużą ilość błędnych prób logowania.");
             return;
         }
 
@@ -31,5 +45,10 @@ public class LoginCommand(IRepository<User> userRepository,
     private static bool CanExecuteLogin(LoginViewModel vm)
     {
         return !string.IsNullOrEmpty(vm.Login) && !string.IsNullOrEmpty(vm.Password);
+    }
+
+    private static void ShowError(string message = "Niepoprawny login lub hasło!")
+    {
+        MessageBox.Show(message, "Błąd autoryzacji", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

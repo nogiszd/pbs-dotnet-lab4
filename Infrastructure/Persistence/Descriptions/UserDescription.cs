@@ -36,6 +36,10 @@ internal static class UserDescription
                 .IsRequired()
                 .HasConversion<int>();
 
+            e.Property(x => x.FailedLoginAttempts)
+                .HasDefaultValue(0)
+                .IsRequired();
+
             e.HasIndex(x => x.Username)
                 .IsUnique();
 

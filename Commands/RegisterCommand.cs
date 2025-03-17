@@ -4,6 +4,7 @@ using WinLab4.Infrastructure.Repositories;
 using WinLab4.Infrastructure.Services;
 using WinLab4.Models;
 using WinLab4.ViewModels;
+using WinLab4.Views;
 
 namespace WinLab4.Commands;
 
@@ -24,9 +25,22 @@ public class RegisterCommand(IRepository<User> userRepository,
 
         var user = new User(vm.FirstName, vm.LastName, vm.Username, hashedPassword, vm.Email);
 
-        await repo.Add(user);
+        try
+        {
+            await repo.Add(user);
+        } 
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Wystąpił błąd podczas rejestracji użytkownika!\nBłąd: {ex.Message}", "Błąd rejestracji", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
 
         MessageBox.Show("Rejestracja zakończona pomyślnie!", "Rejestracja", MessageBoxButton.OK);
+
+        var loginWindow = App.GetService<LoginWindow>();
+        loginWindow.Show();
+
+        Application.Current.Windows.OfType<RegisterWindow>().FirstOrDefault()?.Close();
     }
 
     private static bool CanExecuteRegister(RegisterViewModel vm)

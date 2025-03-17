@@ -20,6 +20,10 @@ public sealed class User : Entity
 
     public UserRole Role { get; private set; } = UserRole.User;
 
+    public int FailedLoginAttempts { get; private set; } = 0;
+
+    public bool IsLockedOut => FailedLoginAttempts >= 3;
+
     public User(string firstName, string lastName, string username, string passwordHash, string email)
     {
         FirstName = firstName;
@@ -32,5 +36,13 @@ public sealed class User : Entity
     public void EnforcePasswordChange()
     {
         NeedsNewPassword = true;
+    }
+
+    public void IncrementFailedLoginAttempts()
+    {
+        if (!IsLockedOut)
+        {
+            FailedLoginAttempts++;
+        }
     }
 }

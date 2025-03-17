@@ -16,6 +16,7 @@ public class RegisterViewModel : INotifyPropertyChanged
     private string _email = string.Empty;
     private string _password = string.Empty;
     private string _confirmPassword = string.Empty;
+    private string _passwordErrorMessage = string.Empty;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -75,7 +76,18 @@ public class RegisterViewModel : INotifyPropertyChanged
         set
         {
             _confirmPassword = value;
+            ValidatePasswords();
             OnPropertyChanged(nameof(ConfirmPassword));
+        }
+    }
+
+    public string PasswordErrorMessage
+    {
+        get => _passwordErrorMessage;
+        set
+        {
+            _passwordErrorMessage = value;
+            OnPropertyChanged(nameof(PasswordErrorMessage));
         }
     }
 
@@ -84,6 +96,20 @@ public class RegisterViewModel : INotifyPropertyChanged
     public RegisterViewModel(IRepository<User> userRepository)
     {
         RegisterCommand = new RegisterCommand(userRepository, this);
+    }
+
+    private void ValidatePasswords()
+    {
+        if (!string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(ConfirmPassword))
+        {
+            if (Password != ConfirmPassword)
+            {
+                PasswordErrorMessage = "Hasła nie są zgodne.";
+                return;
+            }
+        }
+
+        PasswordErrorMessage = string.Empty;
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
