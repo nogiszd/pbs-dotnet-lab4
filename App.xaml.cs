@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using WinLab4.Infrastructure.Persistence;
 using WinLab4.Infrastructure.Repositories;
+using WinLab4.Infrastructure.Services;
 using WinLab4.Views;
 
 namespace WinLab4;
@@ -33,7 +34,21 @@ public partial class App : Application
 
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-        services.Scan(x => x.FromAssemblyOf<App>().AddClasses(c => c.AssignableTo<Window>()).AsSelf().WithTransientLifetime());
+        services.AddSingleton<AuthenticationService>();
+
+        services.Scan(x => 
+            x.FromAssemblyOf<App>()
+             .AddClasses(c => c.AssignableTo<Window>())
+             .AsSelf()
+             .WithTransientLifetime()
+        );
+
+        services.Scan(x =>
+            x.FromAssemblyOf<App>()
+             .AddClasses(c => c.Where(x => x.Name.EndsWith("ViewModel")))
+             .AsSelf()
+             .WithTransientLifetime()
+        );
     }
 
     public static T GetService<T>() where T : class

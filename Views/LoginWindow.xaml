@@ -3,10 +3,87 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WinLab4.Views"
+        xmlns:local="clr-namespace:WinLab4.Views" 
+        xmlns:viewmodels="clr-namespace:WinLab4.ViewModels" 
+        xmlns:helpers="clr-namespace:WinLab4.Helpers"
+        d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Zaloguj się" Height="450" Width="450" MinHeight="450" MinWidth="450"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock Text="System wydarzeń" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center"
+                       FontSize="24" />
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Login:" Grid.Column="0" FontSize="14" VerticalAlignment="Center" />
+            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" 
+                     Width="350" 
+                     Grid.Column="1" 
+                     Height="30" 
+                     Padding="5"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <TextBlock Text="Hasło:" Grid.Column="0" FontSize="14" VerticalAlignment="Center" />
+            <PasswordBox 
+                helpers:PasswordBoxAssistant.BindPassword="True"
+                helpers:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Column="1" 
+                x:Name="PasswordBox"
+                Height="30" 
+                Width="350" 
+                Padding="5" />
+            <TextBox 
+                Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Column="1" 
+                x:Name="PasswordTextBox" 
+                Height="30" 
+                Width="350" 
+                Padding="5" 
+                Visibility="Hidden" />
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0,5,0,5">
+            <CheckBox HorizontalAlignment="Right" 
+                      Content="Pokaż hasło" 
+                      Grid.Row="1" 
+                      Checked="ShowPasswordCheckBox_Checked" 
+                      Unchecked="ShowPasswordCheckBox_Unchecked" />
+        </Grid>
+
+        <Grid Grid.Row="4" Margin="0,10,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Button Command="{Binding LoginCommand}" Grid.Row="0" Content="Zaloguj się" Width="200" Height="30" />
+            <Button Click="RegisterButton_Click" Grid.Row="1" Content="Zarejestruj się" Width="200" Height="30" />
+        </Grid>
     </Grid>
 </Window>

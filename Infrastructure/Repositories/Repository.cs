@@ -22,6 +22,11 @@ public sealed class Repository<T>(AppDbContext dbContext) : IRepository<T> where
         await Context.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<bool> Exists(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>>? modifiers = null, CancellationToken cancellationToken = default)
+    {
+        return await GetCollection(modifiers).AnyAsync(predicate, cancellationToken);
+    }
+
     public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>>? modifiers = null, CancellationToken cancellationToken = default)
     {
         return await GetCollection(modifiers).Where(predicate).ToListAsync(cancellationToken);   
@@ -37,6 +42,11 @@ public sealed class Repository<T>(AppDbContext dbContext) : IRepository<T> where
     {
         return await GetCollection(modifiers).SingleOrDefaultAsync(x => x.Id == id, cancellationToken)
             ?? throw new ResourceNotFoundException(typeof(T).Name, id);
+    }
+
+    public async Task<T?> TryGet(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>>? modifiers = null, CancellationToken cancellationToken = default)
+    {
+        return await GetCollection(modifiers).Where(predicate).SingleOrDefaultAsync(cancellationToken);
     }
 
     public async Task Update(T model, CancellationToken cancellationToken = default)

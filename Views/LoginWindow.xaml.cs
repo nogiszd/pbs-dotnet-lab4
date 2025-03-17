@@ -1,27 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using WinLab4.ViewModels;
 
-namespace WinLab4.Views
+namespace WinLab4.Views;
+
+/// <summary>
+/// Logika interakcji dla klasy LoginWindow.xaml
+/// </summary>
+public partial class LoginWindow : Window
 {
-    /// <summary>
-    /// Logika interakcji dla klasy LoginWindow.xaml
-    /// </summary>
-    public partial class LoginWindow : Window
+    public LoginWindow(LoginViewModel viewModel)
     {
-        public LoginWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        DataContext = viewModel;
+    }
+
+    private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        PasswordTextBox.Text = PasswordBox.Password;
+        PasswordTextBox.Visibility = Visibility.Visible;
+        PasswordBox.Visibility = Visibility.Collapsed;
+    }
+
+    private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
+    {
+        PasswordBox.Password = PasswordTextBox.Text;
+        PasswordTextBox.Visibility = Visibility.Collapsed;
+        PasswordBox.Visibility = Visibility.Visible;
+    }
+
+    private void RegisterButton_Click(object sender, RoutedEventArgs e)
+    {
+        var registerWindow = App.GetService<RegisterWindow>();
+        registerWindow.Show();
+        Close();
     }
 }
