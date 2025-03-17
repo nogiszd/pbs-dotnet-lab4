@@ -14,4 +14,10 @@ public partial class RegisterWindow : Window
         InitializeComponent();
         DataContext = viewModel;
     }
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        var loginWindow = App.GetService<LoginWindow>();
+        loginWindow.Show();
+    }
 }

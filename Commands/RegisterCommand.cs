@@ -37,9 +37,6 @@ public class RegisterCommand(IRepository<User> userRepository,
 
         MessageBox.Show("Rejestracja zakończona pomyślnie!", "Rejestracja", MessageBoxButton.OK);
 
-        var loginWindow = App.GetService<LoginWindow>();
-        loginWindow.Show();
-
         Application.Current.Windows.OfType<RegisterWindow>().FirstOrDefault()?.Close();
     }
 
