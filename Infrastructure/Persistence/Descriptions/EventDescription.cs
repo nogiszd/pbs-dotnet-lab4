@@ -6,7 +6,6 @@ namespace WinLab4.Infrastructure.Persistence.Descriptions;
 
 internal static class EventDescription
 {
-    
     internal static void DescribeEvent(this ModelBuilder builder)
     {
         builder.Entity<Event>(e =>
