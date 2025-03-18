@@ -18,7 +18,7 @@ public class NewPasswordCommand(IRepository<User> userRepository, Authentication
 
         var user = await repository.Get(service.CurrentUser.Id);
 
-        string hashedPassword = PasswordHashing.HashPassword(vm.Password);
+        string hashedPassword = PasswordService.HashPassword(vm.Password);
 
         user.SetPassword(hashedPassword);
 

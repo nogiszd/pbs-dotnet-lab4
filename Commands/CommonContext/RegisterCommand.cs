@@ -21,7 +21,7 @@ public class RegisterCommand(IRepository<User> userRepository,
             return;
         }
 
-        string hashedPassword = PasswordHashing.HashPassword(vm.Password);
+        string hashedPassword = PasswordService.HashPassword(vm.Password);
 
         var user = new User(vm.FirstName, vm.LastName, vm.Username, hashedPassword, vm.Email);
 

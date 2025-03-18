@@ -26,7 +26,7 @@ public class ResetPasswordCommand(IRepository<User> userRepository, UsersViewMod
 
         var selectedUser = await repository.Get(vm.SelectedUser!.Id);
 
-        selectedUser.SetPassword(PasswordHashing.HashPassword("reset"));
+        selectedUser.SetPassword(PasswordService.HashPassword("reset"));
         selectedUser.EnforcePasswordChange();
         selectedUser.ResetFailedLoginAttempts();
 

@@ -1,6 +1,6 @@
 ﻿namespace WinLab4.Infrastructure.Services;
 
-public static class PasswordHashing
+public static class PasswordService
 {
     public static string HashPassword(string password)
     {

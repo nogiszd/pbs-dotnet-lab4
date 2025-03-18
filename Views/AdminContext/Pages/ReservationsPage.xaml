@@ -13,6 +13,7 @@
     <Page.Resources>
         <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
     </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

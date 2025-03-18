@@ -4,11 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:viewmodels="clr-namespace:WinLab4.ViewModels.AdminContext.Pages"
+      xmlns:conv="clr-namespace:WinLab4.Converters"
       xmlns:local="clr-namespace:WinLab4.Views.AdminContext.Pages"
       d:DataContext="{d:DesignInstance Type=viewmodels:UsersViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UsersPage" Background="White">
+    <Page.Resources>
+        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    </Page.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -28,6 +32,9 @@
                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" Width="*" />
                 <DataGridTextColumn Header="Login" Binding="{Binding Username}" Width="*" />
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
+                <DataGridTextColumn Header="Typ użytkownika" 
+                                    Binding="{Binding Role, Converter={StaticResource EnumDescriptionConverter}}" 
+                                    Width="Auto" />
             </DataGrid.Columns>
         </DataGrid>
 

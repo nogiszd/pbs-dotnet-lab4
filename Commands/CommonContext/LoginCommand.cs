@@ -23,7 +23,7 @@ public class LoginCommand(IRepository<User> userRepository,
             return;
         }
 
-        if (!PasswordHashing.VerifyPassword(vm.Password, user.PasswordHash))
+        if (!PasswordService.VerifyPassword(vm.Password, user.PasswordHash))
         {
             user.IncrementFailedLoginAttempts();
             await repository.Update(user);

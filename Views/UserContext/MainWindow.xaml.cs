@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WinLab4;
+namespace WinLab4.Views.UserContext;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
