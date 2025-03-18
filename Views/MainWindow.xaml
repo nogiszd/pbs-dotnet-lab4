@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinLab4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
+        Title="Panel użytkownika" Height="500" Width="800">
     <Grid>
 
     </Grid>

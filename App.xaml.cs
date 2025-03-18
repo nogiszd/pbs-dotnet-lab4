@@ -98,7 +98,7 @@ public partial class App : Application
 
         services.Scan(x =>
             x.FromAssemblyOf<App>()
-             .AddClasses(c => c.Where(x => x.Name.EndsWith("ViewModel")))
+             .AddClasses(c => c.Where(x => x.Name.EndsWith("ViewModel")).Where(x => !x.Name.StartsWith("EditEvent")))
              .AsSelf()
              .WithTransientLifetime()
         );
@@ -115,5 +115,13 @@ public partial class App : Application
 
         var loginWindow = GetService<LoginWindow>();
         loginWindow.Show();
+
+        Current.Exit += (s, args) =>
+        {
+            if (Current.Windows.Count == 0)
+            {
+                Current.Shutdown();
+            }
+        };
     }
 }

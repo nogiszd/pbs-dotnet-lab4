@@ -9,7 +9,8 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:AddUserViewModel}"
         mc:Ignorable="d"
         Title="Dodaj użytkownika" Height="450" Width="400" MinHeight="450" MinWidth="400"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Window.Resources>
         <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 

@@ -38,6 +38,7 @@ public class EventsViewModel : BaseViewModel
         _eventRepository = eventRepository;
 
         AddEventCommand = new RelayCommand(_ => AddEvent());
+        EditEventCommand = new RelayCommand(_ => EditEvent());
         DeleteEventCommand = new AsyncRelayCommand(async (param) => await DeleteEvent(), _ => IsEventSelected);
 
         _ = LoadEvents();
@@ -61,6 +62,20 @@ public class EventsViewModel : BaseViewModel
     {
         var addEventWindow = App.GetService<AddEventWindow>();
         addEventWindow.ShowDialog();
+        await LoadEvents();
+    }
+
+    private async void EditEvent()
+    {
+        if (SelectedEvent == null) return;
+
+        var viewModel = new EditEventViewModel(_eventRepository, SelectedEvent);
+
+        var editEventWindow = App.GetService<EditEventWindow>();
+        editEventWindow.DataContext = viewModel;
+
+        editEventWindow.ShowDialog();
+
         await LoadEvents();
     }
 
