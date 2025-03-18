@@ -2,8 +2,8 @@
 
 public enum ParticipationType
 {
-    Speaker,
-    Attendee,
-    Sposnor,
-    Organizer
+    Speaker = 1,
+    Attendee = 2,
+    Sposnor = 3,
+    Organizer = 4
 }

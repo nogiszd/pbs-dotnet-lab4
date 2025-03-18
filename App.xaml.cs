@@ -1,10 +1,13 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 using WinLab4.Infrastructure.Persistence;
 using WinLab4.Infrastructure.Repositories;
 using WinLab4.Infrastructure.Services;
+using WinLab4.Models;
+using WinLab4.Models.Enums;
 using WinLab4.Views;
 
 namespace WinLab4;
@@ -23,6 +26,49 @@ public partial class App : Application
         var services = new ServiceCollection();
         ConfigureServices(services);
         ServiceProvider = services.BuildServiceProvider();
+
+        var authService = GetService<AuthenticationService>();
+        authService.CurrentUserChanged += OnUserChange;
+    }
+
+    private void OnUserChange(User? user)
+    {
+        if (user == null) return;
+
+        Current.Dispatcher.Invoke(() =>
+        {
+            Window? nextWindow = null;
+
+            switch (user.Role)
+            {
+                case UserRole.User:
+                    nextWindow = GetService<MainWindow>();
+                    break;
+                case UserRole.Admin:
+                    nextWindow = GetService<AdminWindow>();
+                    break;
+                default:
+                    return;
+            }
+
+            if (user.NeedsNewPassword)
+            {
+                nextWindow = GetService<NewPasswordWindow>();
+                nextWindow?.Show();
+                return;
+            }
+
+            nextWindow?.Show();
+
+            foreach (Window window in Current.Windows)
+            {
+                if (window is LoginWindow)
+                {
+                    window.Close();
+                    break;
+                }
+            }
+        });
     }
 
     private void ConfigureServices(IServiceCollection services)
@@ -36,9 +82,16 @@ public partial class App : Application
 
         services.AddSingleton<AuthenticationService>();
 
-        services.Scan(x => 
+        services.Scan(x =>
             x.FromAssemblyOf<App>()
              .AddClasses(c => c.AssignableTo<Window>())
+             .AsSelf()
+             .WithTransientLifetime()
+        );
+
+        services.Scan(x =>
+            x.FromAssemblyOf<App>()
+             .AddClasses(c => c.AssignableTo<Page>())
              .AsSelf()
              .WithTransientLifetime()
         );
@@ -60,7 +113,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        var mainWindow = GetService<LoginWindow>();
-        mainWindow.Show();
+        var loginWindow = GetService<LoginWindow>();
+        loginWindow.Show();
     }
 }

@@ -33,8 +33,7 @@ internal static class UserDescription
 
             e.Property(x => x.Role)
                 .HasDefaultValue(UserRole.User)
-                .IsRequired()
-                .HasConversion<int>();
+                .IsRequired();
 
             e.Property(x => x.FailedLoginAttempts)
                 .HasDefaultValue(0)

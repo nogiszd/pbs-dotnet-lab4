@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 using WinLab4.Commands;
 using WinLab4.Infrastructure.Repositories;
@@ -9,12 +7,10 @@ using WinLab4.Models;
 
 namespace WinLab4.ViewModels;
 
-public class LoginViewModel : INotifyPropertyChanged
+public class LoginViewModel : BaseViewModel
 {
     private string _login = string.Empty;
     private string _password = string.Empty;
-
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     public string Login
     {
@@ -41,10 +37,5 @@ public class LoginViewModel : INotifyPropertyChanged
     public LoginViewModel(IRepository<User> userRepository, AuthenticationService authenticationService)
     {
         LoginCommand = new LoginCommand(userRepository, authenticationService, this);
-    }
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

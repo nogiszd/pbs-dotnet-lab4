@@ -42,7 +42,7 @@ namespace WinLab4.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Event");
+                    b.ToTable("Event", (string)null);
                 });
 
             modelBuilder.Entity("WinLab4.Models.Reservation", b =>
@@ -71,7 +71,7 @@ namespace WinLab4.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservation");
+                    b.ToTable("Reservation", (string)null);
                 });
 
             modelBuilder.Entity("WinLab4.Models.User", b =>
@@ -126,7 +126,7 @@ namespace WinLab4.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("WinLab4.Models.Reservation", b =>

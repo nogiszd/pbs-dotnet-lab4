@@ -1,14 +1,13 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 using WinLab4.Commands;
 using WinLab4.Infrastructure.Repositories;
 using WinLab4.Models;
+using WinLab4.Validators;
 
 namespace WinLab4.ViewModels;
 
-public class RegisterViewModel : INotifyPropertyChanged
+public class RegisterViewModel : BaseViewModel
 {
     private string _firstName = string.Empty;
     private string _lastName = string.Empty;
@@ -16,9 +15,9 @@ public class RegisterViewModel : INotifyPropertyChanged
     private string _email = string.Empty;
     private string _password = string.Empty;
     private string _confirmPassword = string.Empty;
-    private string _passwordErrorMessage = string.Empty;
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    private string _passwordErrorMessage = string.Empty;
+    private string _emailErrorMessage = string.Empty;
 
     public string FirstName
     {
@@ -56,6 +55,7 @@ public class RegisterViewModel : INotifyPropertyChanged
         set
         {
             _email = value;
+            ValidateEmail();
             OnPropertyChanged(nameof(Email));
         }
     }
@@ -91,6 +91,16 @@ public class RegisterViewModel : INotifyPropertyChanged
         }
     }
 
+    public string EmailErrorMessage
+    {
+        get => _emailErrorMessage;
+        set
+        {
+            _emailErrorMessage = value;
+            OnPropertyChanged(nameof(EmailErrorMessage));
+        }
+    }
+
     public ICommand RegisterCommand { get; }
 
     public RegisterViewModel(IRepository<User> userRepository)
@@ -112,8 +122,10 @@ public class RegisterViewModel : INotifyPropertyChanged
         PasswordErrorMessage = string.Empty;
     }
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void ValidateEmail()
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        EmailErrorMessage = !string.IsNullOrEmpty(Email) && !EmailValidator.IsValid(Email) 
+            ? "Adres email jest niepoprawny." 
+            : string.Empty;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using WinLab4.Models;
+using WinLab4.Models.Enums;
 
 namespace WinLab4.Infrastructure.Persistence.Descriptions;
 
@@ -12,13 +13,9 @@ internal static class ReservationDescription
         {
             e.HasKey(x => x.Id);
 
-            e.Property(x => x.ParticipationType)
-                .IsRequired()
-                .HasConversion<int>();
+            e.Property(x => x.ParticipationType).IsRequired();
 
-            e.Property(x => x.CateringPreference)
-                .IsRequired()
-                .HasConversion<int>();
+            e.Property(x => x.CateringPreference).IsRequired();
 
             e.HasOne(x => x.User)
                 .WithMany()

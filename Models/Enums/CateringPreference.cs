@@ -2,7 +2,7 @@
 
 public enum CateringPreference
 {
-    None,
-    Vegetarian,
-    GlutenFree,
+    None = 1,
+    Vegetarian = 2,
+    GlutenFree = 3,
 }

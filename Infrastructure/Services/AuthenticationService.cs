@@ -6,21 +6,25 @@ public class AuthenticationService
 {
     private User? _currentUser;
 
-    public User? CurrentUser => _currentUser;
+    public event Action<User?>? CurrentUserChanged;
 
-    public bool IsLoggedIn => _currentUser != null;
-
-    public event Action? OnUserChanged;
+    public User? CurrentUser
+    {
+        get => _currentUser;
+        private set
+        {
+            _currentUser = value;
+            CurrentUserChanged?.Invoke(_currentUser);
+        }
+    }
 
     public void Login(User user)
     {
-        _currentUser = user;
-        OnUserChanged?.Invoke();
+        CurrentUser = user;
     }
 
     public void Logout()
     {
-        _currentUser = null;
-        OnUserChanged?.Invoke();
+        CurrentUser = null;
     }
 }

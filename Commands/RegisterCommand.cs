@@ -15,7 +15,7 @@ public class RegisterCommand(IRepository<User> userRepository,
 {
     private static async Task ExecuteRegister(IRepository<User> repo, RegisterViewModel vm)
     {
-        if (await repo.Exists(x => x.Username == vm.Username && x.Email == vm.Email))
+        if (await repo.Exists(x => x.Username == vm.Username || x.Email == vm.Email))
         {
             MessageBox.Show("Użytkownik o podanym loginie lub adresie email już istnieje!", "Błąd rejestracji", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
@@ -44,9 +44,11 @@ public class RegisterCommand(IRepository<User> userRepository,
     {
         return !string.IsNullOrWhiteSpace(vm.FirstName)
             && !string.IsNullOrWhiteSpace(vm.LastName)
-            && !string.IsNullOrWhiteSpace(vm.Username) 
-            && !string.IsNullOrWhiteSpace(vm.Email) 
+            && !string.IsNullOrWhiteSpace(vm.Username)
+            && !string.IsNullOrWhiteSpace(vm.Email)
             && !string.IsNullOrWhiteSpace(vm.Password)
-            && !string.IsNullOrWhiteSpace(vm.ConfirmPassword);
+            && !string.IsNullOrWhiteSpace(vm.ConfirmPassword)
+            && string.IsNullOrEmpty(vm.EmailErrorMessage) // Email validation
+            && string.IsNullOrEmpty(vm.PasswordErrorMessage); // Password validation
     }
 }

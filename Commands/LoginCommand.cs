@@ -37,9 +37,13 @@ public class LoginCommand(IRepository<User> userRepository,
             return;
         }
 
-        service.Login(user);
+        if (user.FailedLoginAttempts > 0)
+        {
+            user.ResetFailedLoginAttempts();
+            await repository.Update(user);
+        }
 
-        // todo: redirect to windows depending on user role
+        service.Login(user);
     }
 
     private static bool CanExecuteLogin(LoginViewModel vm)

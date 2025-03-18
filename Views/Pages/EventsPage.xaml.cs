@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace WinLab4.Views.Pages
+using WinLab4.ViewModels;
+
+namespace WinLab4.Views.Pages;
+
+/// <summary>
+/// Logika interakcji dla klasy EventsPage.xaml
+/// </summary>
+public partial class EventsPage : Page
 {
-    /// <summary>
-    /// Logika interakcji dla klasy EventsPage.xaml
-    /// </summary>
-    public partial class EventsPage : Page
+    private readonly EventsViewModel _viewModel;
+
+    public EventsPage(EventsViewModel viewModel)
     {
-        public EventsPage()
+        InitializeComponent();
+        _viewModel = viewModel;
+        DataContext = _viewModel;
+
+        IsVisibleChanged += EventsPage_IsVisibleChanged;
+    }
+
+    private async void EventsPage_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if ((bool)e.NewValue)
         {
-            InitializeComponent();
+            await _viewModel.LoadEvents();
         }
     }
 }

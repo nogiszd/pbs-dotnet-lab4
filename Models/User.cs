@@ -24,12 +24,12 @@ public sealed class User : Entity
 
     public bool IsLockedOut => FailedLoginAttempts >= 3;
 
-    public User(string firstName, string lastName, string username, string passwordHash, string email)
+    public User(string firstName, string lastName, string username, string? passwordHash, string email)
     {
         FirstName = firstName;
         LastName = lastName;
         Username = username;
-        PasswordHash = passwordHash;
+        PasswordHash = passwordHash ?? string.Empty;
         Email = email;
     }
 
@@ -44,5 +44,16 @@ public sealed class User : Entity
         {
             FailedLoginAttempts++;
         }
+    }
+
+    public void ResetFailedLoginAttempts()
+    {
+        FailedLoginAttempts = 0;
+    }
+
+    public void SetPassword(string passwordHash)
+    {
+        PasswordHash = passwordHash;
+        NeedsNewPassword = false;
     }
 }

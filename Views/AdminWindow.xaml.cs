@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using WinLab4.ViewModels;
+using WinLab4.Views.Pages;
 
-namespace WinLab4.Views
+namespace WinLab4.Views;
+
+/// <summary>
+/// Logika interakcji dla klasy AdminWindow.xaml
+/// </summary>
+public partial class AdminWindow : Window
 {
-    /// <summary>
-    /// Logika interakcji dla klasy AdminWindow.xaml
-    /// </summary>
-    public partial class AdminWindow : Window
+    private readonly UsersViewModel _usersViewModel;
+    private readonly EventsViewModel _eventsViewModel;
+
+    public AdminWindow(AdminViewModel adminViewModel, UsersViewModel usersViewModel, EventsViewModel eventsViewModel)
     {
-        public AdminWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        DataContext = adminViewModel;
+
+        _usersViewModel = usersViewModel;
+        _eventsViewModel = eventsViewModel;
+
+        UsersFrame.Content = new UsersPage(_usersViewModel);
+        EventsFrame.Content = new EventsPage(_eventsViewModel);
     }
 }
