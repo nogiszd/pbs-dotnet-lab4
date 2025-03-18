@@ -8,7 +8,8 @@ using WinLab4.Infrastructure.Repositories;
 using WinLab4.Infrastructure.Services;
 using WinLab4.Models;
 using WinLab4.Models.Enums;
-using WinLab4.Views;
+using WinLab4.Views.AdminContext;
+using WinLab4.Views.CommonContext;
 
 namespace WinLab4;
 
