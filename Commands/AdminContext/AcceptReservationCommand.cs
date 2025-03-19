@@ -16,7 +16,7 @@ public class AcceptReservationCommand(IRepository<Reservation> reservationReposi
 
         var result = MessageBox.Show(
             $"Czy na pewno chcesz zaakceptować zapis na wydarzenie {vm.SelectedReservation.Event?.Name}?",
-            "Resetowanie hasła",
+            "Akceptowanie zapisu",
             MessageBoxButton.YesNo,
             MessageBoxImage.Question
             );

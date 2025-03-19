@@ -16,7 +16,7 @@ public class RejectReservationCommand(IRepository<Reservation> reservationReposi
 
         var result = MessageBox.Show(
             $"Czy na pewno chcesz odrzucić zapis na wydarzenie {vm.SelectedReservation.Event?.Name}?",
-            "Resetowanie hasła",
+            "Odrzucenie zapisu",
             MessageBoxButton.YesNo,
             MessageBoxImage.Question
             );
