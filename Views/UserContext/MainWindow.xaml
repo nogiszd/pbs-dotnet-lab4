@@ -7,7 +7,8 @@
         xmlns:viewmodels="clr-namespace:WinLab4.ViewModels.UserContext"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        Title="Panel użytkownika" MinHeight="500" MinWidth="700" Height="500" Width="700">
+        Title="Panel użytkownika" MinHeight="500" MinWidth="700" Height="500" Width="700"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

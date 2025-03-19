@@ -8,13 +8,13 @@
       xmlns:conv="clr-namespace:WinLab4.Converters"
       mc:Ignorable="d" 
       d:DataContext="{d:DesignInstance Type=viewmodels:NewReservationViewModel}"
-      d:DesignHeight="500" d:DesignWidth="466"
+      d:DesignHeight="400" d:DesignWidth="466"
       Title="NewReservationPage" Background="White">
     <Page.Resources>
         <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
     </Page.Resources>
     
-    <Grid Margin="10">
+    <Grid Margin="5,10,5,10">
         <StackPanel VerticalAlignment="Center">
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
@@ -54,24 +54,17 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Grid.Column="0" Text="Termin wydarzenia:" FontSize="14" />
+                <TextBlock Grid.Column="0" 
+                           Text="Termin wydarzenia:" 
+                           FontSize="14" 
+                           MaxWidth="120" 
+                           HorizontalAlignment="Left" 
+                           TextWrapping="WrapWithOverflow" />
                 <DatePicker Grid.Column="1" 
                             MinWidth="280" 
                             SelectedDate="{Binding SelectedEvent.Date, Mode=OneWay}" 
-                            Focusable="False" IsHitTestVisible="False">
-                    <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox">
-                            <Setter Property="IsReadOnly" Value="True" />
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="DatePickerTextBox">
-                                        <TextBlock />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DatePicker.Resources>
-                </DatePicker>
+                            Focusable="False" IsHitTestVisible="False"
+                            VerticalAlignment="Center"/> 
             </Grid>
 
             <Grid Margin="0,0,0,10" >
