@@ -4,9 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinLab4.Views.UserContext"
+        xmlns:viewmodels="clr-namespace:WinLab4.ViewModels.UserContext"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        Title="Panel użytkownika" Height="500" Width="800">
+        Title="Panel użytkownika" MinHeight="500" MinWidth="700" Height="500" Width="700">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Frame x:Name="NewReservationFrame" NavigationUIVisibility="Hidden" />
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Moje rezerwacje" 
+                       FontSize="16" 
+                       Grid.Row="0" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Padding="0,4,0,4"/>
+
+                <DataGrid ItemsSource="{Binding Reservations}"
+                          AutoGenerateColumns="False"
+                          Grid.Row="1"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nazwa wydarzenia" Binding="{Binding Event.Name}" Width="*" />
+                        <DataGridCheckBoxColumn Header="Zaakceptowane?" IsReadOnly="True" Binding="{Binding IsAccepted, Mode=OneWay}" Width="Auto" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+
+        <StackPanel HorizontalAlignment="Right" Grid.Row="1" Margin="10">
+            <Button Width="100" Content="Wyloguj się" Command="{Binding SignOutCommand}" />
+        </StackPanel>
     </Grid>
 </Window>

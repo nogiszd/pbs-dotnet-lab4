@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+
+using WinLab4.Commands.AdminContext;
 using WinLab4.Infrastructure.Repositories;
 using WinLab4.Models;
 
@@ -26,9 +28,9 @@ public class ReservationsViewModel : BaseViewModel
 
     public bool IsReservationSelected => SelectedReservation != null;
 
-    public bool CanAcceptReservation => IsReservationSelected && SelectedReservation!.IsAccepted;
+    public bool CanAcceptReservation => IsReservationSelected && !SelectedReservation!.IsAccepted;
 
-    public bool CanRejectReservation => !CanAcceptReservation;
+    public bool CanRejectReservation => IsReservationSelected && SelectedReservation!.IsAccepted;
 
     public ICommand AcceptReservation { get; }
     public ICommand RejectReservation { get; }
@@ -36,6 +38,9 @@ public class ReservationsViewModel : BaseViewModel
     public ReservationsViewModel(IRepository<Reservation> reservationRepository)
     {
         _reservationRepository = reservationRepository;
+
+        AcceptReservation = new AcceptReservationCommand(_reservationRepository, async () => await LoadReservations(), this);
+        RejectReservation = new RejectReservationCommand(_reservationRepository, async () => await LoadReservations(), this);
 
         _ = LoadReservations();
     }

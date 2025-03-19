@@ -20,7 +20,7 @@ public class NewPasswordViewModel : BaseViewModel
         set
         {
             _password = value;
-            OnPropertyChanged(nameof(Password));
+            OnPropertyChanged();
         }
     }
 
@@ -31,7 +31,7 @@ public class NewPasswordViewModel : BaseViewModel
         {
             _confirmPassword = value;
             ValidatePasswords();
-            OnPropertyChanged(nameof(ConfirmPassword));
+            OnPropertyChanged();
         }
     }
 

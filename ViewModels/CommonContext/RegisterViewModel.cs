@@ -25,7 +25,7 @@ public class RegisterViewModel : BaseViewModel
         set
         {
             _firstName = value;
-            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged();
         }
     }
 
@@ -35,7 +35,7 @@ public class RegisterViewModel : BaseViewModel
         set
         {
             _lastName = value;
-            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged();
         }
     }
 
@@ -45,7 +45,7 @@ public class RegisterViewModel : BaseViewModel
         set
         {
             _username = value;
-            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged();
         }
     }
 
@@ -56,7 +56,7 @@ public class RegisterViewModel : BaseViewModel
         {
             _email = value;
             ValidateEmail();
-            OnPropertyChanged(nameof(Email));
+            OnPropertyChanged();
         }
     }
 
@@ -66,7 +66,7 @@ public class RegisterViewModel : BaseViewModel
         set
         {
             _password = value;
-            OnPropertyChanged(nameof(Password));
+            OnPropertyChanged();
         }
     }
 
@@ -77,7 +77,7 @@ public class RegisterViewModel : BaseViewModel
         {
             _confirmPassword = value;
             ValidatePasswords();
-            OnPropertyChanged(nameof(ConfirmPassword));
+            OnPropertyChanged();
         }
     }
 
@@ -87,7 +87,7 @@ public class RegisterViewModel : BaseViewModel
         set
         {
             _passwordErrorMessage = value;
-            OnPropertyChanged(nameof(PasswordErrorMessage));
+            OnPropertyChanged();
         }
     }
 
@@ -97,7 +97,7 @@ public class RegisterViewModel : BaseViewModel
         set
         {
             _emailErrorMessage = value;
-            OnPropertyChanged(nameof(EmailErrorMessage));
+            OnPropertyChanged();
         }
     }
 

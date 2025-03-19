@@ -22,7 +22,7 @@ public class AddUserViewModel : BaseViewModel
         set
         {
             _firstName = value;
-            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged();
         }
     }
 
@@ -32,7 +32,7 @@ public class AddUserViewModel : BaseViewModel
         set
         {
             _lastName = value;
-            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged();
         }
     }
 
@@ -42,7 +42,7 @@ public class AddUserViewModel : BaseViewModel
         set
         {
             _username = value;
-            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged();
         }
     }
 
@@ -53,7 +53,7 @@ public class AddUserViewModel : BaseViewModel
         {
             _email = value;
             ValidateEmail();
-            OnPropertyChanged(nameof(Email));
+            OnPropertyChanged();
         }
     }
 
@@ -63,7 +63,7 @@ public class AddUserViewModel : BaseViewModel
         set
         {
             _emailErrorMessage = value;
-            OnPropertyChanged(nameof(EmailErrorMessage));
+            OnPropertyChanged();
         }
     }
 

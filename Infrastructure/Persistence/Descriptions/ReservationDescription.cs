@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using WinLab4.Models;
-using WinLab4.Models.Enums;
 
 namespace WinLab4.Infrastructure.Persistence.Descriptions;
 

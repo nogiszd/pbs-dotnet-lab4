@@ -23,7 +23,8 @@ public class EventsViewModel : BaseViewModel
         set
         {
             _selectedEvent = value;
-            OnPropertyChanged(nameof(SelectedEvent));
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(IsEventSelected));
         }
     }
 

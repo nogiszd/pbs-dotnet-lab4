@@ -100,7 +100,11 @@ public partial class App : Application
 
         services.Scan(x =>
             x.FromAssemblyOf<App>()
-             .AddClasses(c => c.Where(x => x.Name.EndsWith("ViewModel")).Where(x => !x.Name.StartsWith("EditEvent")))
+             .AddClasses(
+                c => c.Where(x => x.Name.EndsWith("ViewModel"))
+                      .Where(x => !x.Name.StartsWith("EditEvent"))
+                      .Where(x => !x.Name.StartsWith("NewReservation"))
+             )
              .AsSelf()
              .WithTransientLifetime()
         );

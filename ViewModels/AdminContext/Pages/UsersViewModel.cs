@@ -25,7 +25,7 @@ public class UsersViewModel : BaseViewModel
         set
         {
             _selectedUser = value;
-            OnPropertyChanged(nameof(SelectedUser));   
+            OnPropertyChanged();   
         }
     }
 

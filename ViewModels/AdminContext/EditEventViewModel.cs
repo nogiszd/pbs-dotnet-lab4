@@ -21,7 +21,7 @@ public class EditEventViewModel : BaseViewModel
         set
         {
             _id = value;
-            OnPropertyChanged(nameof(Id));
+            OnPropertyChanged();
         }
     }
 
@@ -31,7 +31,7 @@ public class EditEventViewModel : BaseViewModel
         set
         {
             _name = value;
-            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged();
         }
     }
 
@@ -41,7 +41,7 @@ public class EditEventViewModel : BaseViewModel
         set
         {
             _agenda = value;
-            OnPropertyChanged(nameof(Agenda));
+            OnPropertyChanged();
         }
     }
 
@@ -51,7 +51,7 @@ public class EditEventViewModel : BaseViewModel
         set
         {
             _date = value;
-            OnPropertyChanged(nameof(Date));
+            OnPropertyChanged();
         }
     }
 

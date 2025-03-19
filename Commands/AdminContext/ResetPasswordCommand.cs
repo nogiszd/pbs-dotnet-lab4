@@ -16,7 +16,7 @@ public class ResetPasswordCommand(IRepository<User> userRepository, UsersViewMod
         if (vm.SelectedUser == null) return;
 
         var result = MessageBox.Show(
-            $"Czy na pewno chcesz zresetować hasło użytkownika {vm.SelectedUser?.Username}?",
+            $"Czy na pewno chcesz zresetować hasło użytkownika {vm.SelectedUser.Username}?",
             "Resetowanie hasła",
             MessageBoxButton.YesNo,
             MessageBoxImage.Question
@@ -24,7 +24,7 @@ public class ResetPasswordCommand(IRepository<User> userRepository, UsersViewMod
 
         if (result != MessageBoxResult.Yes) return;
 
-        var selectedUser = await repository.Get(vm.SelectedUser!.Id);
+        var selectedUser = await repository.Get(vm.SelectedUser.Id);
 
         selectedUser.SetPassword(PasswordService.HashPassword("reset"));
         selectedUser.EnforcePasswordChange();

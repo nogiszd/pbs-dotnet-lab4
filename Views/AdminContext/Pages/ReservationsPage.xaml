@@ -43,7 +43,7 @@
                 <DataGridTextColumn Header="Wyżywienie" 
                                     Binding="{Binding CateringPreference, Converter={StaticResource EnumDescriptionConverter}}"
                                     Width="*" />
-                <DataGridCheckBoxColumn Header="Czy potwierdzone?" Binding="{Binding IsAccepted}" Width="Auto" />
+                <DataGridCheckBoxColumn Header="Czy potwierdzone?" IsReadOnly="True" Binding="{Binding IsAccepted, Mode=OneWay}" Width="Auto" />
             </DataGrid.Columns>
         </DataGrid>
 
