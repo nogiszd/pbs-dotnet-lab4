@@ -23,17 +23,17 @@ public class LoginCommand(IRepository<User> userRepository,
             return;
         }
 
+        if (user.IsLockedOut)
+        {
+            ShowError("Konto jest zablokowane przez zbyt dużą ilość błędnych prób logowania.");
+            return;
+        }
+
         if (!PasswordService.VerifyPassword(vm.Password, user.PasswordHash))
         {
             user.IncrementFailedLoginAttempts();
             await repository.Update(user);
             ShowError();
-            return;
-        }
-
-        if (user.IsLockedOut)
-        {
-            ShowError("Konto jest zablokowane przez zbyt dużą ilość błędnych prób logowania.");
             return;
         }
 
