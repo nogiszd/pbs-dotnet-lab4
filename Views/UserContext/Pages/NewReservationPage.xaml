@@ -43,9 +43,35 @@
                          Grid.Column="1" 
                          MinWidth="280" 
                          Height="180" 
-                         MaxHeight="180" 
+                         MaxHeight="160" 
                          VerticalScrollBarVisibility="Auto" 
                          IsReadOnly="True" />
+            </Grid>
+
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Termin wydarzenia:" FontSize="14" />
+                <DatePicker Grid.Column="1" 
+                            MinWidth="280" 
+                            SelectedDate="{Binding SelectedEvent.Date, Mode=OneWay}" 
+                            Focusable="False" IsHitTestVisible="False">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DatePickerTextBox">
+                                        <TextBlock />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
             </Grid>
 
             <Grid Margin="0,0,0,10" >
